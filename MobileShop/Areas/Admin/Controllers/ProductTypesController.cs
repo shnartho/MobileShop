@@ -40,5 +40,62 @@ namespace MobileShop.Areas.Admin.Controllers
             }
             return View(productTypes);
         }
+
+        // get edit 
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productTypes = _db.ProductTypes.Find(id);
+            if (productTypes == null)
+            {
+                return NotFound();
+            }
+
+            return View(productTypes);
+        }
+
+        // post edit 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ProductTypes productTypes)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Update(productTypes);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(productTypes);
+        }
+
+        // get details
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productTypes = _db.ProductTypes.Find(id);
+            if (productTypes == null)
+            {
+                return NotFound();
+            }
+
+            return View(productTypes);
+        }
+
+        // post edit 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public  IActionResult Details(ProductTypes productTypes)
+        {
+            return RedirectToAction(nameof(Index));
+            
+        }
+
     }
 }
